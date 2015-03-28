@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.software.shell.fab.ActionButton;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -38,6 +39,14 @@ public class MainActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        ActionButton actionButton = (ActionButton) findViewById(R.id.action_button);
+        actionButton.setButtonColor(getResources().getColor(R.color.primary));
+        actionButton.setButtonColorPressed(getResources().getColor(R.color.primaryDark));
+        actionButton.setImageDrawable(getResources().getDrawable(R.drawable.fab_plus_icon));
+        actionButton.setShowAnimation(ActionButton.Animations.JUMP_FROM_DOWN);
+        actionButton.setHideAnimation(ActionButton.Animations.JUMP_TO_DOWN);
+        actionButton.playShowAnimation();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
         mRecyclerView.setHasFixedSize(true);                            // Letting the system know that the list objects are of fixed size
