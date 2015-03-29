@@ -1,5 +1,6 @@
 package com.joebruzek.materialtest;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -31,6 +32,7 @@ public class MainActivity extends ActionBarActivity {
     RecyclerView.LayoutManager mLayoutManager;            // Declaring Layout Manager as a linear layout manager
     DrawerLayout Drawer;                                  // Declaring DrawerLayout
     ActionBarDrawerToggle mDrawerToggle;
+    BlankFragment frag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,6 @@ public class MainActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
-        ActionButton actionButton = (ActionButton) findViewById(R.id.action_button);
-        actionButton.setButtonColor(getResources().getColor(R.color.primary));
-        actionButton.setButtonColorPressed(getResources().getColor(R.color.primaryDark));
-        actionButton.setImageDrawable(getResources().getDrawable(R.drawable.fab_plus_icon));
-        actionButton.setShowAnimation(ActionButton.Animations.JUMP_FROM_DOWN);
-        actionButton.setHideAnimation(ActionButton.Animations.JUMP_TO_DOWN);
-        actionButton.playShowAnimation();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
         mRecyclerView.setHasFixedSize(true);                            // Letting the system know that the list objects are of fixed size
@@ -84,6 +78,12 @@ public class MainActivity extends ActionBarActivity {
         }; // Drawer Toggle Object Made
         Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();
+
+
+        if (getFragmentManager().findFragmentById(R.layout.material_fragment) == null) {
+            frag = new BlankFragment();
+        }
+        getFragmentManager().beginTransaction().add(R.id.container, frag).commit();
     }
 
 
