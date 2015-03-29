@@ -1,6 +1,5 @@
 package com.joebruzek.materialtest;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -11,31 +10,36 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.software.shell.fab.ActionButton;
 
 
 public class MainActivity extends ActionBarActivity implements NavDrawerCallbacks {
 
-    private Toolbar toolbar;
+    //Titles of the items in the Nav Drawer
     String TITLES[] = {"Home","Events","Mail","Shop","Travel"};
+    //Icons for the items in the Nav Drawer
     int ICONS[] = {R.drawable.ic_action,
             R.drawable.ic_action,
             R.drawable.ic_action,
             R.drawable.ic_action,
             R.drawable.ic_action};
-    String NAME = "Akash Bangad";
-    String EMAIL = "akash.bangad@android4devs.com";
-    int PROFILE = R.drawable.face;
+    //Profile information
+    String NAME = "Joe Bruzek";
+    String EMAIL = "jbruzek@vt.edu";
+    int PROFILE = R.drawable.joe;
 
-    RecyclerView mRecyclerView;                           // Declaring RecyclerView
-    RecyclerView.Adapter mAdapter;                        // Declaring Adapter For Recycler View
-    RecyclerView.LayoutManager mLayoutManager;            // Declaring Layout Manager as a linear layout manager
-    DrawerLayout Drawer;                                  // Declaring DrawerLayout
+    private Toolbar toolbar;
+    RecyclerView mRecyclerView;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
+    DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
     BlankFragment frag;
 
+    /**
+     * Initialize the toolbar and the nav drawer.
+     * add the home fragment to the frame
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,35 +49,28 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
-        mRecyclerView.setHasFixedSize(true);                            // Letting the system know that the list objects are of fixed size
-
-        mAdapter = new NavAdapter(TITLES,ICONS,NAME,EMAIL,PROFILE,this, this);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
-        // And passing the titles,icons,header view name, header view email,
-        // and header view profile picture
-
-        mRecyclerView.setAdapter(mAdapter);                              // Setting the adapter to RecyclerView
-
-        mLayoutManager = new LinearLayoutManager(this);                 // Creating a layout Manager
-
-        mRecyclerView.setLayoutManager(mLayoutManager);                 // Setting the layout Manager
+        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new NavAdapter(TITLES, ICONS, NAME, EMAIL, PROFILE, this, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);        // Drawer object Assigned to the view
+        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
         Drawer.setStatusBarBackgroundColor(getResources().getColor(R.color.primaryDark));
         mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar,R.string.open_drawer,R.string.close_drawer){
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                // code here will execute once the drawer is opened( As I dont want anything happened whe drawer is
-                // open I am not going to put anything here)
+                //drawer is open
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                // Code here will execute once drawer is closed
+                //drawer is closed
             }
 
 
@@ -81,7 +78,6 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
         }; // Drawer Toggle Object Made
         Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();
-
 
         if (getFragmentManager().findFragmentById(R.layout.material_fragment) == null) {
             frag = new BlankFragment();
@@ -102,9 +98,6 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -112,6 +105,11 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Called by the Nav Drawer when an item in the nav drawer has been selected.
+     * Swap the fragment in the frame, close the drawer, etc..
+     * @param position
+     */
     @Override
     public void itemSelected(int position) {
         Drawer.closeDrawers();
