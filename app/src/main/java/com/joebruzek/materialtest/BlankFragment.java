@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.software.shell.fab.ActionButton;
 
@@ -15,6 +16,8 @@ import com.software.shell.fab.ActionButton;
  * Created by jbruzek on 3/29/15.
  */
 public class BlankFragment extends Fragment {
+
+    private TextView title;
 
     /**
      * initialize the interface
@@ -25,6 +28,9 @@ public class BlankFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.material_fragment, container, false);
         container.removeAllViews();
+
+        title = (TextView)v.findViewById(R.id.fragment_textView);
+        title.setText(getArguments().getString("name", "TExt"));
 
         //Floating action button taken from here:
         // https://github.com/shell-software/fab
