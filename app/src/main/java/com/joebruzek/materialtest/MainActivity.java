@@ -42,6 +42,7 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
@@ -117,6 +118,7 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
         Bundle b;
         switch(position) {
             case 1:
+                toolbar.setTitle("Home");
                 frag = new BlankFragment();
                 b = new Bundle();
                 b.putString("name", "Home");
@@ -124,6 +126,7 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
                 getFragmentManager().beginTransaction().replace(R.id.container, frag).commit();
                 break;
             case 2:
+                toolbar.setTitle("Events");
                 frag = new BlankFragment();
                 b = new Bundle();
                 b.putString("name", "Events");
@@ -131,6 +134,7 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
                 getFragmentManager().beginTransaction().replace(R.id.container, frag).commit();
                 break;
             case 3:
+                toolbar.setTitle("Mail");
                 frag = new BlankFragment();
                 b = new Bundle();
                 b.putString("name", "Mail");
@@ -138,6 +142,7 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
                 getFragmentManager().beginTransaction().replace(R.id.container, frag).commit();
                 break;
             case 4:
+                toolbar.setTitle("Shop");
                 frag = new BlankFragment();
                 b = new Bundle();
                 b.putString("name", "Shop");
@@ -145,6 +150,7 @@ public class MainActivity extends ActionBarActivity implements NavDrawerCallback
                 getFragmentManager().beginTransaction().replace(R.id.container, frag).commit();
                 break;
             case 5:
+                toolbar.setTitle("Travel");
                 frag = new BlankFragment();
                 b = new Bundle();
                 b.putString("name", "Travel");
